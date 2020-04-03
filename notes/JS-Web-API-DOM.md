@@ -11,6 +11,10 @@ API:
 常见问题：
 - DOM 是哪种数据结构  
 树（DOM 树） 树形结构
+![](images/2020-04-03-12-11-43.png)
+![](images/2020-04-03-12-14-14.png)
+[节点相关参考](https://www.w3school.com.cn/htmldom/dom_nodes.asp)
+> 没有父节点的节点就是根节点（root），html文档中一般指最外层的 `<html>`。在元素节点中的文字，就是文字节点，这样的文字节点拥有包裹它的元素节点
 - DOM 操作的常用 API  
 DOM 节点操作，DOM 结构操作，attribute 和 property
 - attr（attribute） 和 property 的区别（attribute 提供api修改，property 通过属性进行修改）
