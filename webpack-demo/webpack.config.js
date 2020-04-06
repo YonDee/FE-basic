@@ -10,6 +10,18 @@ module.exports = {
     filename: 'bundle.js',
     path: path.join(__dirname, 'dist')
   },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: ['babel-loader'],
+        // 插件应用目录
+        include: path.join(__dirname, 'src'),
+        // 插件排除目录
+        exclude: /node_modules/
+      }
+    ]
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'index.html'),

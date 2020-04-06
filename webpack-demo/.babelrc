@@ -1,0 +1,4 @@
+{
+  // preset-env 是诸多配置插件的集合
+  "presets": ["@babel/preset-env"]
+}
