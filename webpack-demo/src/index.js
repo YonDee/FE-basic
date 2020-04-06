@@ -1,0 +1,1 @@
+console.log('this is webpack ouput file')
