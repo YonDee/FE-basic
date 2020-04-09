@@ -34,8 +34,8 @@ console.log(j) // 这里会报错，因为i和j的作用域在for循环中，如
 - 隐式：if、逻辑运算、==、+ 拼接字符串
 
 ## 手写深度比较 lodash.isEqual
-[lodash](https://www.lodashjs.com/docs/latest)是什么？
-![](images/2020-04-08-16-48-08.png)
+[lodash](https://www.lodashjs.com/docs/latest)是什么？  
+![](images/2020-04-08-16-48-08.png)  
 实现效果：
 ```javascript
 const obj1 = {a: 10, b: {x: 100, y: 200}}
@@ -43,8 +43,8 @@ const obj2 = {a: 10, b: {x: 100, y: 200}}
 
 isEqual(obj1, obj2) === true
 ```
-两个对象是单独声明的，所以直接比较得到的结果是：
-![](images/2020-04-08-16-51-15.png)
+两个对象是单独声明的，所以直接比较得到的结果是：  
+![](images/2020-04-08-16-51-15.png)  
 因为引用的不是一个内存地址的内容
 ```javascript
 // 判断是否是对象或数组
