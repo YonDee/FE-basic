@@ -259,3 +259,105 @@ function sum(x, y) {
 只要记住，this 指向当前执行位置（作用域），this 的指向和定义位置无关。
 ![](images/2020-04-10-16-21-29.png)
 所以第一个 what? 答案是 1，第二个因为在全局作用域下，全局没有声明count 则返回 undefined
+
+## JS 的正则表达式使用
+```javascript
+// 字符串 字母开头，后面字母数字下划线，长度6-30
+const reg = /^[a-zA-Z]\w{5,29}$/
+// 邮政编码
+/\d{6}/
+// 小写英文字母
+/^[a-z]+$/
+// 英文字母
+/^[a-zA-Z]+$/
+// 日期格式
+/^\d{4}-\d{1, 2}-\d{1,2}$/
+// 用户名 6-18 位，字母开头，字母数字下划线结尾
+/^a-zA-Z\w{5, 17}$/
+// 简单的ip地址匹配（只匹配数字和ip结构），注意这里的`.`如果不加`\`转义会匹配任意字符
+/\d+\.\d+\.\d+\.\d+/
+```
+具体学习参考：https://deerchao.cn/tutorials/regex/regex.htm  
+更多正则表达式的资料：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions
+
+## 函数面试题运行结果题目技巧
+先看函数执行位置，然后再看函数内容，作用域会影响函数运行结果
+
+## 手写 trim 方法，保证浏览器兼容性
+```javascript
+// 将开头和结尾的空白字符换成空字符串
+String.prototype.trim = function () {
+  return this.replace(/^\s+/, '').replace(/\s+$/, '')
+}
+// 考点： 原型，this，正则表达式
+```
+
+## 获取多个数字中的最大值
+两种方式：手写和`Math.max()`  
+手写：
+```javascript
+function max() {
+  const nums = Array.prototype.slice.call(arguments) // 变为数组
+  nums.forEach(n => {
+    if (n > max) {
+      max = n
+    }
+  })
+  return max
+}
+```
+
+## 如何用 JS 实现继承
+- class 继承 `class ClassName extends ParentClass`
+- prototype 继承，原型链方式，可以使用诸如：`Object.create(ParentObject)`、`obj.prototype = ParentObj`
+> 关于原型链继承方面的内容，可以多看看《JavaScript 高级程序设计》
+
+## 如何补货 JS 中的异常
+手动捕获：
+```javascript
+try {
+  // todo
+} catch (ex) {
+  console.error(ex) // 手动捕获 catch
+} finally {
+  // todo
+}
+```
+自动捕获：
+```javascript
+window.onerror = function (message, source, lineNom, colNom, error) {
+  // 第一，对跨域的 js，如 CDN 的，不会有详细的报错信息
+  // 第二，对于压缩的 js，还要配合 sourceMap 反查到未压缩代码的行、列
+}
+```
+`sourceMap`一个信息文件，里面储存着位置信息，一般在看很多源码的库中都有相应的.map文件
+
+## 什么是 JSON
+- json 是一种数据格式，本质是一段字符串。
+- json 格式和 JS 对象结构一致，对 JS 语言更友好
+- window.JSON 是一个全局对象，所以我们可以使用：`JSON.stringify()`、`JSON.parse()`
+
+## 获取当前页面 url 参数
+传统方式：
+```javascript
+function query(name) {
+  const search = location.search.substr(1) // 类似 array.slice(1)
+  // search: 'a=10&b=20&c=30'
+  const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i') // 相当于 /.../ 类似这样的字面量方式来构建正则表达式
+  const res = search.match(reg)
+  if (res === null) {
+    return null
+  }
+  return res[2]
+}
+```
+> 这里通过拆分字符串来实现也是可以的，这种方式的关键函数`String.prototype.split()`  
+URLSearchParams
+```javascript
+function query(name) {
+  const search = location.search
+  const p = new URLSearchParams(search)
+  return p.get(name)
+}
+```
+> [URLSearchParams](https://developer.mozilla.org/zh-CN/docs/Web/API/URLSearchParams) 接口定义了一些实用的方法来处理 URL 的查询字符串，但是这里需要注意兼容性，在应用需要兼容处理的时候做好接口的判断
