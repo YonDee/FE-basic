@@ -312,7 +312,7 @@ function max() {
 - prototype 继承，原型链方式，可以使用诸如：`Object.create(ParentObject)`、`obj.prototype = ParentObj`
 > 关于原型链继承方面的内容，可以多看看《JavaScript 高级程序设计》
 
-## 如何补货 JS 中的异常
+## 如何捕获 JS 中的异常
 手动捕获：
 ```javascript
 try {
@@ -361,3 +361,58 @@ function query(name) {
 }
 ```
 > [URLSearchParams](https://developer.mozilla.org/zh-CN/docs/Web/API/URLSearchParams) 接口定义了一些实用的方法来处理 URL 的查询字符串，但是这里需要注意兼容性，在应用需要兼容处理的时候做好接口的判断
+
+## 将 url 参数解析为 JS 对象
+实现方法可以想到，参考上面获取 url 参数的函数进行修改即可
+![](images/2020-04-12-14-21-08.png)  
+同样的也可以用 URLSearchParams 写法
+![](images/2020-04-12-14-26-32.png)  
+
+## 手写 flatern 考虑多层级
+一层拍平：
+![](images/2020-04-12-14-47-11.png)  
+多层级拍平：
+```javascript
+function flat(arr) {
+  const isDeep = arr.some(item => item instanceof Array)
+  if(!isDeep) {
+    return arr // 已拍平
+  }
+  const res = Array.prototype.concat.apply([], arr)
+  return flat(res) // 递归，反正遇到深层次遍历就想想递归准没错
+}
+```
+
+## 数组去重
+- 传统方式，遍历元素逐个比较，实现去重
+- 使用 Set
+- 考虑计算效率
+```javascript
+// 传统去重（兼容性方式）
+function unique(arr) {
+  const res = []
+  arr.forEach(item => {
+    if (res.indexOf(item) < 0) {
+      res.push(item)
+    }
+  })
+  return res
+}
+
+
+// Set （无序结构，不能重复，推荐使用）
+function setUnique(arr) {
+  const setArr = new Set(arr)
+  return [...setArr]
+}
+```
+
+## 介绍 RAF requetAnimationFrame
+- 想要动画流畅，更新频率要 60 帧/s，即 16.67ms 更新一次视图
+- setTimeout 要手动控制频率，而 RAF 浏览器会自动控制
+- 后台标签或隐藏 iframe 中，RAF 会暂停，而 setTimeout 依然执行  
+> [参考 Demo](../../code/RAF/)
+
+## 如何性能优化， 从哪几个方面考虑
+- 原则：多使用内存、缓存、减少计算、减少网络请求
+- 方向：加载页面，页面渲染，页面操作流畅度
