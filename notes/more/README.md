@@ -410,8 +410,9 @@ function setUnique(arr) {
 ## 介绍 RAF requetAnimationFrame
 - 想要动画流畅，更新频率要 60 帧/s，即 16.67ms 更新一次视图
 - setTimeout 要手动控制频率，而 RAF 浏览器会自动控制
-- 后台标签或隐藏 iframe 中，RAF 会暂停，而 setTimeout 依然执行  
+- 后台标签或隐藏 iframe 中，RAF 会暂停，而 setTimeout 依然执行
 > [参考 Demo](../../code/RAF/)
+> [参考API](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestAnimationFrame)
 
 ## 如何性能优化， 从哪几个方面考虑
 - 原则：多使用内存、缓存、减少计算、减少网络请求
