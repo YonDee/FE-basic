@@ -1,5 +1,6 @@
+# 课程内拓展题
 ## var 和 let const 的区别？
-- ar 是 **ES5** 语法，let const 是 **ES6** 语法；var **有变量提升**
+- var 是 **ES5** 语法，let const 是 **ES6** 语法；var **有变量提升**
 - `var` 和 `let` 是变量，可修改；`const` 是常量，不可修改（除了修改对象的值）;
 - `let` `const` 有**块级作用域**，`var` **没有**
 
