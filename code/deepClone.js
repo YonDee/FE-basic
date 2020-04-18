@@ -18,11 +18,11 @@ console.log(obj2)
  */
 function deepClone(obj = {}){
   let result;
-  // 为了
+  // 判断如果不是对象/或者是null 则返回
   if(typeof obj !== 'object' || obj == null) {
     return obj;
   }
-  
+  // 判断是数组还是对象
   if (obj instanceof Array) {
     result = []
   } else {
@@ -30,7 +30,7 @@ function deepClone(obj = {}){
   }
 
   for ( let key in obj ) {
-    // 保证不是集成来的属性
+    // 保证不是继承来的属性
     if(obj.hasOwnProperty(key)) {
       result[key] = deepClone(obj[key])
     }
